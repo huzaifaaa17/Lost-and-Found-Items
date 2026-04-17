@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lost & Found (Supabase)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Fascinating background blobs -->
+  <div class="fx-blob b1"></div>
+  <div class="fx-blob b2"></div>
+  <div class="fx-blob b3"></div>
+
+  <header class="container header">
+    <div class="brand">
+      <h1>Lost &amp; Found</h1>
+      <p class="muted">Report lost/found items • Search • Filter • Auth via Supabase</p>
+    </div>
+
+    <div class="authbar">
+      <div id="userInfo" class="chip muted">Not logged in</div>
+      <button id="btnLogout" class="btn secondary hidden">Logout</button>
+    </div>
+  </header>
+
+  <main class="container grid">
+    <!-- Auth -->
+    <section class="card">
+      <h2>Account</h2>
+
+      <div class="row">
+        <label>Email</label>
+        <input id="authEmail" type="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="row">
+        <label>Password</label>
+        <input id="authPassword" type="password" placeholder="••••••••" />
+      </div>
+
+      <div class="row buttons">
+        <button id="btnSignUp" class="btn">Sign up</button>
+        <button id="btnLogin" class="btn secondary">Login</button>
+      </div>
+
+      <p class="muted small">
+        Tip: use a real email if you enable email confirmations in Supabase Auth settings.
+      </p>
+      <div id="authMsg" class="msg"></div>
+    </section>
+
+    <!-- Create post -->
+    <section class="card">
+      <h2>Create a post</h2>
+      <p class="muted small">You must be logged in to post.</p>
+
+      <div class="row">
+        <label>Type</label>
+        <select id="itemType">
+          <option value="lost">Lost</option>
+          <option value="found">Found</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Title</label>
+        <input id="itemTitle" placeholder="e.g., Black wallet" />
+      </div>
+
+      <div class="row">
+        <label>Description</label>
+        <textarea id="itemDescription" rows="4" placeholder="Add details (brand, color, identifying marks)..."></textarea>
+      </div>
+
+      <div class="row">
+        <label>Category</label>
+        <select id="itemCategory">
+          <option value="">Any</option>
+          <option value="phone">Phone</option>
+          <option value="wallet">Wallet</option>
+          <option value="keys">Keys</option>
+          <option value="bag">Bag</option>
+          <option value="id">ID / Card</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Location</label>
+        <input id="itemLocation" placeholder="e.g., Library, 2nd floor" />
+      </div>
+
+      <div class="row">
+        <label>Contact Email (optional)</label>
+        <input id="itemContactEmail" type="email" placeholder="contact@example.com" />
+      </div>
+
+      <button id="btnCreate" class="btn full">Publish</button>
+      <div id="createMsg" class="msg"></div>
+    </section>
+
+    <!-- Search / filter -->
+    <section class="card span2">
+      <h2>Search &amp; Filter</h2>
+
+      <div class="filters">
+        <div class="row">
+          <label>Search</label>
+          <input id="q" placeholder="Search title/description/location..." />
+        </div>
+
+        <div class="row">
+          <label>Type</label>
+          <select id="filterType">
+            <option value="">All</option>
+            <option value="lost">Lost</option>
+            <option value="found">Found</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label>Status</label>
+          <select id="filterStatus">
+            <option value="">All</option>
+            <option value="open">Open</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label>Category</label>
+          <select id="filterCategory">
+            <option value="">All</option>
+            <option value="phone">Phone</option>
+            <option value="wallet">Wallet</option>
+            <option value="keys">Keys</option>
+            <option value="bag">Bag</option>
+            <option value="id">ID / Card</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="row buttons">
+          <button id="btnApply" class="btn">Apply</button>
+          <button id="btnClear" class="btn secondary">Clear</button>
+        </div>
+      </div>
+
+      <hr class="sep" />
+
+      <div class="row between">
+        <h3 class="no-margin">Posts</h3>
+        <button id="btnRefresh" class="btn secondary">Refresh</button>
+      </div>
+
+      <div id="list" class="list"></div>
+      <div id="listMsg" class="msg"></div>
+    </section>
+  </main>
+
+  <!-- Supabase JS (UMD) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
